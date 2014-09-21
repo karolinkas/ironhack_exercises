@@ -1,4 +1,5 @@
 require 'terminfo'
+require 'time'
 # require 'pry'
  
 class Keynote
@@ -41,6 +42,15 @@ attr_accessor(:slides, :width_p, :height_p, :counter)
 			when "n"
 				@counter += 1
 				publish(@heightp,@widthp,@slides[@counter])
+
+			when "auto"
+				# @t = Time.now												
+					loop do
+						sleep(3)
+						@counter += 1
+						publish(@heightp,@widthp,@slides[@counter])	
+					
+					end
 			end
 			
 			# binding.pry
