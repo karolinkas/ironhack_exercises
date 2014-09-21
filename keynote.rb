@@ -9,36 +9,36 @@ width=TermInfo.screen_size[1]
 
 heigthp=height/4
 widthp=width/2
+counter=0
 
-firstslide = "Prepare for the next big thing" 
-secondslide = "The iTerminal" 
+slides=["first","second","third","fourth","fifth","sixth"]
 
+ 
 # printf firstslide.rjust(widthp).center(heigthp) 
 
-def slide_play(heigthp,firstslide,widthp)
-(heigthp).times{puts "\r\n|\r|\n"}
-printf firstslide.rjust(widthp)
-(heigthp).times{puts "\r\n|\r|\n"}
-puts ("left".ljust(20)) + ("right".rjust(60).to_s)
+def slide_play(heigthp,widthp,slides)
+	(heigthp).times{puts "\r\n|\r|\n"}
+	printf slides.rjust(widthp)
+	(heigthp).times{puts "\r\n|\r|\n"}
+	puts ("(p)revious".ljust(20)) + ("(n)ext".rjust(60).to_s)
 
 end
 
 
 
-def slide_play_2(heigthp,secondslide,widthp)
-(heigthp).times{puts "\r\n|\r|\n"}
-printf secondslide.rjust(widthp)
-(heigthp).times{puts "\r\n|\r|\n"}
+slide_play(heigthp,widthp,slides[counter])
+
+loop do 
+
+	leftright = gets.chomp
+
+	case leftright
+		when "p"
+			slide_play(heigthp,widthp,slides[counter])
+		when "n"
+			counter+=1
+			slide_play(heigthp,widthp,slides[counter])
+		end
+
 end
-
-
-slide_play(heigthp,firstslide,widthp)
-leftright = gets.chomp
-
-case leftright
-	when "left"
-		slide_play(heigthp,firstslide,widthp)
-	when "right"
-		slide_play_2(heigthp,secondslide,widthp)
-	end
 		
