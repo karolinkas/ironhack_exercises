@@ -1,44 +1,55 @@
 require 'terminfo'
-p TermInfo.screen_size
-
-height=TermInfo.screen_size[0]
-width=TermInfo.screen_size[1]
-
-# nextone = gets.chomp
-# previous = gets.chomp
-
-heigthp=height/4
-widthp=width/2
-counter=0
-
-slides=["first","second","third","fourth","fifth","sixth"]
-
+# require 'pry'
  
-# printf firstslide.rjust(widthp).center(heigthp) 
+class Keynote
+attr_accessor(:slides, :width_p, :height_p, :counter) 
+	def initialize
+	height=TermInfo.screen_size[0]
+	width=TermInfo.screen_size[1]
 
-def slide_play(heigthp,widthp,slides)
-	(heigthp).times{puts "\r\n|\r|\n"}
-	printf slides.rjust(widthp)
-	(heigthp).times{puts "\r\n|\r|\n"}
-	puts ("(p)revious".ljust(20)) + ("(n)ext".rjust(60).to_s)
+	@heightp = height/4
+	@widthp = width/2
+	@counter = 0
 
-end
+	@slides=["first","second","third","fourth","fifth","sixth"]
+	# binding.pry
+	end
 
 
+	def publish(heightp,widthp,slides)
+		(@heightp).times{puts "\r\n|\r|\n"}
+		printf slides.rjust(widthp)
+		(@heightp).times{puts "\r\n|\r|\n"}
+		puts ("(p)revious".ljust(20)) + ("(n)ext".rjust(60).to_s)
+		
+		# binding.pry
+	end
+    
 
-slide_play(heigthp,widthp,slides[counter])
+	def play
+	
+	publish(@heightp,@widthp,@slides[0])
+	
+		loop do 
 
-loop do 
+			leftright = gets.chomp
 
-	leftright = gets.chomp
-
-	case leftright
-		when "p"
-			slide_play(heigthp,widthp,slides[counter])
-		when "n"
-			counter+=1
-			slide_play(heigthp,widthp,slides[counter])
+			case leftright
+			when "p"
+				@counter -= 1
+				publish(@heightp,@widthp,@slides[@counter])
+			when "n"
+				@counter += 1
+				publish(@heightp,@widthp,@slides[@counter])
+			end
+			
+			# binding.pry
 		end
 
+	end
 end
+
+superkeynote = Keynote.new
+superkeynote.play
+# binding.pry
 		
